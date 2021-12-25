@@ -1,0 +1,15 @@
+{
+  "mountains": [
+    {
+      "mountainNo": 35,
+      "imgUrl": ["http://url"],
+      "orgUrl": "https://asdsad",
+      "addressDetail": "서울시 관악구",
+      "lat": "120",
+      "lon": "100.1",
+      "transInfo": "35",
+      "mountainHeight": "123.5",
+      "mountainInfo": ""
+    }
+  ]
+}
