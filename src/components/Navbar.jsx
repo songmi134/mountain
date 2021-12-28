@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import logo from '.././src_assets/mountain-logo.png';
 import { Link } from 'react-router-dom';
-import { Menu, Avatar, Row, Col } from 'antd';
-import { HeatMapOutlined, UserOutlined } from '@ant-design/icons';
+import { Menu, Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 const Navbar = () => {
   const [current, setCurrent] = useState('main');
@@ -20,12 +21,12 @@ const Navbar = () => {
         fontSize: '18px',
         fontWeight: 'bold',
         marginBottom: '30px',
+        backgroundColor: '#B5D2B9',
       }}
     >
-      {/* <Col> */}
       <Menu.Item key="main">
         <Link to="/">
-          <HeatMapOutlined />
+          <img src={logo} alt="logo" style={{ width: '50px' }} />
         </Link>
       </Menu.Item>
 
@@ -36,28 +37,18 @@ const Navbar = () => {
       <Menu.Item key="community">
         <Link to="/community">커뮤니티</Link>
       </Menu.Item>
-      {/* </Col> */}
 
-      {/* <Col
-        // span={2}
-        // offset={14}
-        // style={{
-        //   display: 'flex',
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        // }}
-        > */}
       <Menu.Item key="login">
-        {/* <Avatar
-          style={{
-            backgroundColor: '#87d068',
-            cursor: 'pointer',
-          }}
-          icon={<UserOutlined />}
-        /> */}
-        Login
+        <Link to="/login">
+          <Avatar
+            style={{
+              backgroundColor: '#305136',
+              cursor: 'pointer',
+            }}
+            icon={<UserOutlined />}
+          />
+        </Link>
       </Menu.Item>
-      {/* </Col> */}
     </Menu>
   );
 };
