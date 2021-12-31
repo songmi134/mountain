@@ -1,18 +1,16 @@
-/* global kakao */
 import React, { useState, useEffect } from 'react';
 import { Switch, Row } from 'antd';
 
 const { kakao } = window;
 
-const Map = () => {
+const MapContainer = () => {
   const [terrain, setTerrain] = useState(true);
 
   useEffect(() => {
     const container = document.getElementById('map');
-
     const options = {
       center: new kakao.maps.LatLng(35.85133, 127.734086),
-      level: 10,
+      level: 7,
     };
 
     const map = new kakao.maps.Map(container, options);
@@ -30,19 +28,19 @@ const Map = () => {
 
   return (
     <>
-      <div
-        id="map"
-        style={{
-          width: '500px',
-          height: '500px',
-        }}
-      ></div>
       <Row>
         지형정보 보기
         <Switch onChange={onChange}></Switch>
       </Row>
+      <div
+        id="map"
+        style={{
+          width: '40vw',
+          height: '70vh',
+        }}
+      ></div>
     </>
   );
 };
 
-export default Map;
+export default MapContainer;

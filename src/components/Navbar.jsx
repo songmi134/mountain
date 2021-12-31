@@ -26,8 +26,8 @@ const Navbar = () => {
           </Link>
         </Menu.Item>
 
-        <Menu.Item key="list">
-          <Link to="/list">산 검색</Link>
+        <Menu.Item key="search">
+          <Link to="/search">산 검색</Link>
         </Menu.Item>
 
         <Menu.Item key="community">
