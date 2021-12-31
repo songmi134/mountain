@@ -11,7 +11,6 @@
     "antd": "^4.17.4",
     "axios": "^0.24.0",
     "craco-antd": "^1.19.0",
-    "craco-less": "^2.0.0",
     "cross-env": "^7.0.3",
     "json-server": "^0.17.0",
     "react": "^17.0.2",
@@ -44,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "craco-less": "^2.0.0"
   }
 }

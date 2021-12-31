@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import Searchbar from './Searchbar';
 import MapContainer from '../.././components/MapContainer';
@@ -7,12 +7,12 @@ import MountainList from './MountainList';
 const Search = () => {
   return (
     <>
-      <Row>
-        <Col span={12}>
+      <Row justify="center">
+        <Col xs={20} xl={10}>
           <Searchbar />
           <MapContainer />
         </Col>
-        <Col span={12}>
+        <Col xs={20} xl={10}>
           <MountainList />
         </Col>
       </Row>

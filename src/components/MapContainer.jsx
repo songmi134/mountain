@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Row } from 'antd';
+import { Switch, Row, Space } from 'antd';
 
 const { kakao } = window;
 
@@ -28,17 +28,19 @@ const MapContainer = () => {
 
   return (
     <>
-      <Row>
-        지형정보 보기
-        <Switch onChange={onChange}></Switch>
-      </Row>
       <div
         id="map"
         style={{
-          width: '40vw',
+          width: '100%',
           height: '70vh',
+          marginBottom: '20px',
         }}
       ></div>
+      <Switch
+        checkedChildren="지형정보 끄기"
+        unCheckedChildren="지형정보 보기"
+        onChange={onChange}
+      ></Switch>
     </>
   );
 };
