@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Landing from './pages/Landing/Landing';
 import Search from './pages/Search/Search';
 import Community from './pages/Community/Community';
+import Login from './pages/Login/Login';
 import './App.less';
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
     <BrowserRouter basename="mountain">
       <Navbar />
       <Route path="/" exact component={Landing} />
+      <Route path="/Login" exact component={Login} />
       <Route path="/search" exact component={Search} />
       <Route path="/community" exact component={Community} />
     </BrowserRouter>
