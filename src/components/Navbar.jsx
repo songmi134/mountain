@@ -11,6 +11,10 @@ const Nav = styled.div`
   font-weight: bold;
 `;
 
+const Logo = styled.img`
+  width: 50px;
+`;
+
 const Navbar = () => {
   const [current, setCurrent] = useState('main');
 
@@ -22,7 +26,7 @@ const Navbar = () => {
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
         <Menu.Item key="main">
           <Link to="/">
-            <img src={logo} alt="logo" style={{ width: '50px' }} />
+            <Logo src={logo} alt="logo" />
           </Link>
         </Menu.Item>
 
@@ -37,10 +41,7 @@ const Navbar = () => {
         <Menu.Item key="login">
           <Link to="/login">
             <Avatar
-              style={{
-                backgroundColor: 'var(--color-dark-green)',
-                cursor: 'pointer',
-              }}
+              style={{ backgroundColor: 'var(--color-dark-green)' }}
               icon={<UserOutlined />}
             />
           </Link>
