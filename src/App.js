@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Landing from './pages/Landing/Landing';
 import Search from './pages/Search/Search';
 import Community from './pages/Community/Community';
+import WritingForm from './pages/Community/WritingForm';
 import './App.less';
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/" exact component={Landing} />
       <Route path="/search" exact component={Search} />
       <Route path="/community" exact component={Community} />
+      <Route path="/form" exact component={WritingForm} />
     </BrowserRouter>
   );
 };
