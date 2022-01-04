@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Row, Table, Tag, Layout } from 'antd';
+import { Button, Row, Table, Tag, Layout, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
 const Community = () => {
   const { Header, Footer, Content } = Layout;
+  const { Search } = Input;
 
   const columns = [
     { title: 'No', dataIndex: 'key' },
@@ -91,7 +92,15 @@ const Community = () => {
               <Tag>산후기</Tag>
             </Row>
 
-            <Row align="end">
+            <Row align="space-between" style={{ marginTop: '30px' }}>
+              <Form>
+                <Form.Item name="search">
+                  <Search
+                    placeholder="글 제목을 검색하세요"
+                    // onSearch={onSearch}
+                  />
+                </Form.Item>
+              </Form>
               <Link to="/form">
                 <Button type="primary">글쓰기</Button>
               </Link>
