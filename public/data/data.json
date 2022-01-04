@@ -1,24 +1,60 @@
 {
-    "data": [
-      {
-        "mountainNo": 35,
-        "mountainName": "청량산",
-        "orgUrl" : "https://asdsad",
-        "lat": "120",
-        "lon": "100.1",
-        "transInfo": "ddd",
-        "mountainInfo": "산세는 크지 않으나 연이어 솟는 바위 봉우리와 기암절벽이 어우러져 예로부터 소금강으로 꼽힐 만큼 산세가 수려하고, 도립공원으로 지정(1982년)된 점 등을 고려하여 선정, 원효대사가 창건한 유리보전, 신라시대의외청량사, 최치원의 유적지인 고운대와 독서당, 공민왕이 홍건적의 난을 피해 은신한 오마대(五馬臺)와 청량산성, 김생이 글씨를 공부하던 김생굴, 퇴계 이황이 수도하며 성리학을 집대성한 오산당(청량정사) 등 역사적 유적지로 유명",
-        "addressDetail": "서울시 관악구",
-        "likes": 3 ,
-        "mountainSum" : " ",
-        "mountainHeight": "870",
-        "comments": { 
-                        "commentNo": 1,
-                        "uid": " ",
-                        "commentContent": " ",
-                        "fstRegDtm": 20211231,
-                        "lstUpdDtm": 20211231
-         }
-      }
-    ]
-  }
+  "mountains": [
+    {
+      "mountainNo": 1,
+      "mountainName": "태백산",
+      "imgUrl": [
+        "https://tour.taebaek.go.kr/page/tour/images/sub/bg-always-taebaek-park-02.jpg"
+      ],
+      "orgUrl": "https://asdsad",
+      "addressDetail": "강원도 태백시 태백산로 4778",
+      "lat": "120",
+      "lon": "100.1",
+      "transInfo": "35",
+      "mountainHeight": "123.5",
+      "mountainInfo": "태백산은 1989년 5월 13일 도립공원으로 지정되었으며, 2016년 우리나라 22번째 국립공원으로 지정되었다. 전체면적은 70.052㎢이며 천제단이 있는 영봉(1,560m)을 중심으로 북쪽에 장군봉(1,567m) 동쪽에 문수봉(1,517m), 영봉과 문수봉 사이의 부쇠봉(1,546m) 등으로 이뤄져 있으며, 최고봉은 함백산(1,572m)이다."
+    },
+    {
+      "mountainNo": 2,
+      "mountainName": "태백산",
+      "imgUrl": [
+        "https://tour.taebaek.go.kr/page/tour/images/sub/bg-always-taebaek-park-02.jpg"
+      ],
+      "orgUrl": "https://asdsad",
+      "addressDetail": "강원도 태백시 태백산로 4778",
+      "lat": "120",
+      "lon": "100.1",
+      "transInfo": "35",
+      "mountainHeight": "123.5",
+      "mountainInfo": "태백산은 1989년 5월 13일 도립공원으로 지정되었으며, 2016년 우리나라 22번째 국립공원으로 지정되었다. 전체면적은 70.052㎢이며 천제단이 있는 영봉(1,560m)을 중심으로 북쪽에 장군봉(1,567m) 동쪽에 문수봉(1,517m), 영봉과 문수봉 사이의 부쇠봉(1,546m) 등으로 이뤄져 있으며, 최고봉은 함백산(1,572m)이다."
+    },
+    {
+      "mountainNo": 3,
+      "mountainName": "태백산",
+      "imgUrl": [
+        "https://tour.taebaek.go.kr/page/tour/images/sub/bg-always-taebaek-park-02.jpg"
+      ],
+      "orgUrl": "https://asdsad",
+      "addressDetail": "강원도 태백시 태백산로 4778",
+      "lat": "120",
+      "lon": "100.1",
+      "transInfo": "35",
+      "mountainHeight": "123.5",
+      "mountainInfo": "태백산은 1989년 5월 13일 도립공원으로 지정되었으며, 2016년 우리나라 22번째 국립공원으로 지정되었다. 전체면적은 70.052㎢이며 천제단이 있는 영봉(1,560m)을 중심으로 북쪽에 장군봉(1,567m) 동쪽에 문수봉(1,517m), 영봉과 문수봉 사이의 부쇠봉(1,546m) 등으로 이뤄져 있으며, 최고봉은 함백산(1,572m)이다."
+    },
+    {
+      "mountainNo": 4,
+      "mountainName": "태백산",
+      "imgUrl": [
+        "https://tour.taebaek.go.kr/page/tour/images/sub/bg-always-taebaek-park-02.jpg"
+      ],
+      "orgUrl": "https://asdsad",
+      "addressDetail": "강원도 태백시 태백산로 4778",
+      "lat": "120",
+      "lon": "100.1",
+      "transInfo": "35",
+      "mountainHeight": "123.5",
+      "mountainInfo": "태백산은 1989년 5월 13일 도립공원으로 지정되었으며, 2016년 우리나라 22번째 국립공원으로 지정되었다. 전체면적은 70.052㎢이며 천제단이 있는 영봉(1,560m)을 중심으로 북쪽에 장군봉(1,567m) 동쪽에 문수봉(1,517m), 영봉과 문수봉 사이의 부쇠봉(1,546m) 등으로 이뤄져 있으며, 최고봉은 함백산(1,572m)이다."
+    }
+  ]
+}
