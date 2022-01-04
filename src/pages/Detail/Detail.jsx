@@ -21,8 +21,25 @@ const Showcase = styled.div`
     width: 480px;
     height: 270.01px;
   }
+  h1 {
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 40px;
+  }
   h2 {
     margin-top: 20px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  hr {
+    border: 1px solid #D9D9D9;
+    margin-top: 40px;
+    margin-bottom: 40px;
   }
 
 `;
