@@ -1,6 +1,5 @@
-import { COLORS } from '../.././constants';
 import styled from 'styled-components';
-import { Row, Tag } from 'antd';
+import { Row } from 'antd';
 
 export const Title = styled.div`
   font-family: Work Sans;
@@ -25,8 +24,3 @@ export const Container = styled(Row)`
   justify: center;
 `;
 
-export const ColoredTag = styled(Tag)`
-  background-color: ${COLORS.primary};
-  color: white;
-  border-radius: 10px;
-`;
