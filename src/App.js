@@ -16,7 +16,7 @@ const App = () => {
       <Route path="/search" exact component={Search} />
       <Route path="/community" exact component={Community} />
       <Route path="/form" exact component={WritingForm} />
-      <Route path="/detail/:id" component={CommunityDetail} />
+      <Route path="/community/detail" component={CommunityDetail} />
     </BrowserRouter>
   );
 };
