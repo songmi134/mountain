@@ -4,8 +4,10 @@ import { UserContext } from '../../components/login/AuthProvider';
 import { signInGoogle, signOut } from '../../auth/firebaseAuth';
 import '../../index.css';
 
+
 const Login = () => {
   const { user }  = useContext(UserContext);
+
   return (
     
       <div>
