@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Title, Description } from './Detail.style';
+import { Title, Description, ImgL } from './Detail.style';
 
 const Mountaininfo = () => {
   const [mountainName, setMountainName] = useState(undefined); //산이름
@@ -31,7 +31,7 @@ const Mountaininfo = () => {
   return (
     <>
       <Title>{mountainName}</Title>
-      <img alt="empty" src={imgUrl} />
+      <ImgL alt="empty" src={imgUrl} />
       <h2>설명</h2>
       <Description>{mountainInfo}</Description>
       <h2>교통정보</h2>

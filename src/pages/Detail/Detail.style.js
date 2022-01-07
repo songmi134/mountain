@@ -17,10 +17,36 @@ export const Description = styled(Row)`
   line-height: 22px;
 `;
 
-export const Container = styled(Row)`
-  width: 700px;
-  margin: auto;
-  align: center;
-  justify: center;
+export const Writing = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
+export const ImgS = styled.img`
+  border-radius: 10px;
+  width: 32px;
+  height: 32px;  
+`;
+
+export const ImgL = styled.img`
+  margin-top: 20px;
+  width: 600px;
+  height: 270.01px;
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+
+`;
+
+export const List = styled.div`
+  width: 600px;
+
+`;
