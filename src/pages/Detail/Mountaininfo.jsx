@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import heart from '../../src_assets/heart3.png';
 import axios from 'axios';
-import { Title, Description, ImgL } from './Detail.style';
+import { Header, Title, Description, ImgL, ImgS } from './Detail.style';
 
 const Mountaininfo = () => {
   const [mountainName, setMountainName] = useState(undefined); //산이름
@@ -30,7 +31,10 @@ const Mountaininfo = () => {
 
   return (
     <>
-      <Title>{mountainName}</Title>
+      <Header>
+        <Title>{mountainName}</Title>
+        <ImgS alt="empty" src={heart} />
+      </Header>
       <ImgL alt="empty" src={imgUrl} />
       <h2>설명</h2>
       <Description>{mountainInfo}</Description>

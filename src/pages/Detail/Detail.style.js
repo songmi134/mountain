@@ -9,6 +9,12 @@ export const Title = styled.div`
   line-height: 40px;
 `;
 
+export const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const Description = styled(Row)`
   font-family: Roboto;
   font-style: normal;
@@ -28,6 +34,11 @@ export const Writing = styled.div`
 `;
 
 export const ImgS = styled.img`
+  width: 40px;
+  height: 40px;  
+`;
+
+export const ImgM = styled.img`
   border-radius: 10px;
   width: 32px;
   height: 32px;  

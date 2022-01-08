@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Writing, ImgS } from './Detail.style';
+import { Container, Writing, ImgM } from './Detail.style';
 import { Form, Input, Button, Row } from 'antd';
 
 const Comment = () => {
@@ -29,28 +29,28 @@ const Comment = () => {
     <>
       <h2>댓글</h2>
       <Container>
-        <ImgS alt="empty" src={imgUrl} />
+        <ImgM alt="empty" src={imgUrl} />
         <Writing>{mountainInfo}</Writing>
         <Button>수정</Button>
         <Button>삭제</Button>
       </Container>
       <Container>
-      <Row justify="center">
-        <Form style={{ width: '600px', marginTop: '30px' }}>
-          <Form.Item>
-            <Input.TextArea
-              rows={4}
-              placeholder="내용을 입력하세요"
-              size="large"
-              showCount
-              maxLength={1000}
-            />
-            <Button type="primary" size="large" style={{ marginTop: '20px' }}>
-              작성
-            </Button>
-          </Form.Item>
-        </Form>
-      </Row>
+        <Row justify="center">
+          <Form style={{ width: '600px', marginTop: '30px' }}>
+            <Form.Item>
+              <Input.TextArea
+                rows={4}
+                placeholder="내용을 입력하세요"
+                size="large"
+                showCount
+                maxLength={1000}
+              />
+              <Button type="primary" size="large" style={{ marginTop: '20px' }}>
+                작성
+              </Button>
+            </Form.Item>
+          </Form>
+        </Row>
       </Container>
     </>
   );
