@@ -45,6 +45,7 @@ const Community = () => {
   ];
 
   const [allPosts, setAllPosts] = useState(undefined);
+  const [categories, setCategories] = useState(undefined);
   const [category, setCategory] = useState(undefined);
 
   // 검색 기능 구현
@@ -59,11 +60,12 @@ const Community = () => {
     }
   }, [userInput]);
 
-  // 임시 데이터 - 커뮤니티
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/community');
+      const response = await axios.get('http://localhost:4000/community', {
+        params: { category },
+      });
       if (!completed) {
         setAllPosts(response.data);
       }
@@ -72,22 +74,14 @@ const Community = () => {
     return () => {
       completed = true;
     };
-  }, []);
+  }, [category]);
 
-  // 태그 필터링 기능 구현
-
-  // 표 필터링 기능 구현
-  function onChange(filters, sorter, extra) {
-    console.log('params', filters, sorter, extra);
-  }
-
-  // 임시 데이터 - 카테고리
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
       const response = await axios.get('http://localhost:4000/category');
       if (!completed) {
-        setCategory(response.data);
+        setCategories(response.data);
       }
     };
     getMountains();
@@ -96,6 +90,20 @@ const Community = () => {
     };
   }, []);
 
+  const handleCategoryChange = v => {
+    const selectedCategory = v.target.value;
+    if (selectedCategory === '모든 글') {
+      setCategory(undefined);
+    } else {
+      setCategory(selectedCategory);
+    }
+  };
+
+  // 표 정렬 기능 구현
+  function onChange(filters, sorter, extra) {
+    console.log('params', filters, sorter, extra);
+  }
+
   return (
     <>
       <MainContainer>
@@ -103,12 +111,16 @@ const Community = () => {
           <Title>산에 대해 자유롭게 이야기를 나눠요</Title>
 
           <Content>
-            {category ? (
+            {categories ? (
               <Row justify="center" style={{ margin: '20px' }}>
-                <Radio.Group defaultValue="0" buttonStyle="solid">
-                  <Radio.Button value="0">모든 글</Radio.Button>
-                  {category.map(v => (
-                    <Radio.Button key={v.cateId} value={v.cateId}>
+                <Radio.Group
+                  defaultValue="모든 글"
+                  buttonStyle="solid"
+                  onChange={handleCategoryChange}
+                >
+                  <Radio.Button value="모든 글">모든 글</Radio.Button>
+                  {categories.map(v => (
+                    <Radio.Button key={v.cateId} value={v.cateName}>
                       {v.cateName}
                     </Radio.Button>
                   ))}
