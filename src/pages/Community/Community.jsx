@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Row, Table, Tag, Layout, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
+import { COLORS } from '../.././constants';
+import axios from 'axios';
+import { Title, ColoredTag } from './Community.style';
 
 const Community = () => {
-  const { Header, Footer, Content } = Layout;
+  const { Header, Content } = Layout;
   const { Search } = Input;
 
   const columns = [
-    { title: 'No', dataIndex: 'key' },
-    { title: '제목', dataIndex: 'title' },
+    { title: 'No', dataIndex: 'id' },
+    {
+      title: '제목',
+      dataIndex: 'title',
+      render: (text, record) => (
+        <Link to={{ pathname: `/community/detail/${record.id}` }}>{text}</Link>
+      ),
+    },
     {
       title: '작성자',
       dataIndex: 'writer',
+      render: text => text.name,
       sorter: {
         compare: (a, b) => a.writer - b.writer,
         multiple: 3,
@@ -19,7 +29,7 @@ const Community = () => {
     },
     {
       title: '작성일',
-      dataIndex: 'date',
+      dataIndex: 'createdAt',
       sorter: {
         compare: (a, b) => a.date - b.date,
         multiple: 2,
@@ -27,7 +37,7 @@ const Community = () => {
     },
     {
       title: '조회수',
-      dataIndex: 'views',
+      dataIndex: 'viewCount',
       sorter: {
         compare: (a, b) => a.views - b.views,
         multiple: 1,
@@ -35,69 +45,81 @@ const Community = () => {
     },
   ];
 
-  const data = [
-    {
-      key: '1',
-      title: '저희 집 뒷산을 소개합니다.',
-      writer: '홍길동',
-      date: '2022.1.3',
-      views: 701,
-    },
-    {
-      key: '2',
-      title: '저희 집 뒷산을 소개합니다.',
-      writer: '홍길동',
-      date: '2022.1.3',
-      views: 701,
-    },
-    {
-      key: '3',
-      title: '저희 집 뒷산을 소개합니다.',
-      writer: '홍길동',
-      date: '2022.1.3',
-      views: 701,
-    },
-  ];
+  const [allPosts, setAllPosts] = useState(undefined);
+  const [category, setCategory] = useState(undefined);
 
+  // 검색 기능 구현
+  const [userInput, setUserInput] = useState('');
+
+  useEffect(() => {
+    if (allPosts) {
+      const filterTitle = allPosts.filter(post =>
+        post.title.includes(userInput)
+      );
+      setAllPosts(filterTitle);
+    }
+  }, [userInput]);
+
+  // 임시 데이터 - 커뮤니티
+  useEffect(() => {
+    let completed = false;
+    const getMountains = async () => {
+      const response = await axios.get('http://localhost:4000/community');
+      if (!completed) {
+        setAllPosts(response.data);
+      }
+    };
+    getMountains();
+    return () => {
+      completed = true;
+    };
+  }, []);
+
+  // 태그 필터링 기능 구현
+
+  // 표 필터링 기능 구현
   function onChange(filters, sorter, extra) {
     console.log('params', filters, sorter, extra);
   }
 
+  // 임시 데이터 - 카테고리
+  useEffect(() => {
+    let completed = false;
+    const getMountains = async () => {
+      const response = await axios.get('http://localhost:4000/category');
+      if (!completed) {
+        setCategory(response.data);
+      }
+    };
+    getMountains();
+    return () => {
+      completed = true;
+    };
+  }, []);
+
   return (
     <Row justify="center" aline="center">
       <Row style={{ width: '1200px' }}>
-        <Layout style={{ backgroundColor: '#FFFFFF' }}>
-          <Header
-            style={{
-              backgroundColor: '#FFFFFF',
-              textAlign: 'center',
-              fontSize: '2rem',
-              fontWeight: 'bold',
-            }}
-          >
-            산에 대해 자유롭게 이야기를 나눠요
-          </Header>
+        <Layout>
+          <Title>산에 대해 자유롭게 이야기를 나눠요</Title>
 
           <Content>
-            <Row>
-              <Tag
-                color="var(--color-dark-green)"
-                style={{ borderRadius: '10px' }}
-              >
-                산후기
-              </Tag>
-              <Tag>산후기</Tag>
-              <Tag>산후기</Tag>
-              <Tag>산후기</Tag>
-              <Tag>산후기</Tag>
-            </Row>
+            {category ? (
+              <Row>
+                {category.map(v => {
+                  return <ColoredTag key={v.cateId}>{v.cateName}</ColoredTag>;
+                })}
+              </Row>
+            ) : (
+              <Row>Loading...</Row>
+            )}
 
             <Row align="space-between" style={{ marginTop: '30px' }}>
               <Form>
                 <Form.Item name="search">
                   <Search
                     placeholder="글 제목을 검색하세요"
-                    // onSearch={onSearch}
+                    onSearch={setUserInput}
                   />
                 </Form.Item>
               </Form>
@@ -109,7 +131,7 @@ const Community = () => {
             <Row align="center">
               <Table
                 columns={columns}
-                dataSource={data}
+                dataSource={allPosts}
                 onChange={onChange}
                 pagination={false}
                 style={{ width: '100%' }}
