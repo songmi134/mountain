@@ -3,7 +3,12 @@ import { Button, Row, Table, Tag, Layout, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { COLORS } from '../.././constants';
 import axios from 'axios';
-import { Title, ColoredTag } from './Community.style';
+import {
+  Title,
+  ColoredTag,
+  MainContainer,
+  SubContainer,
+} from './Community.style';
 
 const Community = () => {
   const { Header, Content } = Layout;
@@ -98,14 +103,14 @@ const Community = () => {
   }, []);
 
   return (
-    <Row justify="center" aline="center">
-      <Row style={{ width: '1200px' }}>
+    <>
+      <MainContainer>
         <Layout>
           <Title>산에 대해 자유롭게 이야기를 나눠요</Title>
 
           <Content>
             {category ? (
-              <Row>
+              <Row justify="center" style={{ margin: '20px' }}>
                 {category.map(v => {
                   return <ColoredTag key={v.cateId}>{v.cateName}</ColoredTag>;
                 })}
@@ -114,7 +119,7 @@ const Community = () => {
               <Row>Loading...</Row>
             )}
 
-            <Row align="space-between" style={{ marginTop: '30px' }}>
+            <Row justify="center" align="space-between">
               <Form>
                 <Form.Item name="search">
                   <Search
@@ -139,8 +144,8 @@ const Community = () => {
             </Row>
           </Content>
         </Layout>
-      </Row>
-    </Row>
+      </MainContainer>
+    </>
   );
 };
 
