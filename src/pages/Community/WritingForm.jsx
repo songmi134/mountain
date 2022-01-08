@@ -1,22 +1,41 @@
-import React from 'react';
-import { Form, Input, Button, Tag, Row } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Row, Radio } from 'antd';
+import { FormContainer, FormInput, FormButton } from './Community.style';
+import axios from 'axios';
 
 const WritingForm = () => {
+  const [category, setCategory] = useState(undefined);
+
+  useEffect(() => {
+    let completed = false;
+    const getMountains = async () => {
+      const response = await axios.get('http://localhost:4000/category');
+      if (!completed) {
+        setCategory(response.data);
+      }
+    };
+    getMountains();
+    return () => {
+      completed = true;
+    };
+  }, []);
+
   return (
-    <Row justify="center">
-      <Form style={{ width: '700px', marginTop: '30px' }}>
-        <Tag
-          color="var(--color-dark-green)"
-          style={{ borderRadius: '10px', marginBottom: '10px' }}
-        >
-          산후기
-        </Tag>
+    <Row>
+      <FormContainer>
+        <Radio.Group defaultValue={1} buttonStyle="solid">
+          {category ? (
+            category.map(v => (
+              <Radio.Button key={v.cateId} value={v.cateId}>
+                {v.cateName}
+              </Radio.Button>
+            ))
+          ) : (
+            <Row>Loading...</Row>
+          )}
+        </Radio.Group>
         <Form.Item>
-          <Input
-            placeholder="제목을 입력하세요"
-            size="large"
-            style={{ height: '60px', fontSize: '2rem', fontWeight: 'bold' }}
-          />
+          <FormInput placeholder="제목을 입력하세요" />
         </Form.Item>
         <Form.Item>
           <Input.TextArea
@@ -29,12 +48,12 @@ const WritingForm = () => {
         </Form.Item>
         <Row align="end">
           <Form.Item>
-            <Button type="primary" size="large" style={{ marginTop: '20px' }}>
+            <FormButton type="primary" size="large">
               글쓰기
-            </Button>
+            </FormButton>
           </Form.Item>
         </Row>
-      </Form>
+      </FormContainer>
     </Row>
   );
 };

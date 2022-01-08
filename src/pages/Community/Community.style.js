@@ -1,6 +1,6 @@
 import { COLORS } from '../.././constants';
 import styled from 'styled-components';
-import { Row, Tag, Form, Input, Button } from 'antd';
+import { Row, Form, Input, Button, Tag } from 'antd';
 
 export const Title = styled.div`
   font-size: 2rem;
@@ -35,13 +35,6 @@ export const SubContainer = styled(Row)`
   margin: 50px;
 `;
 
-export const ColoredTag = styled(Tag)`
-  background-color: ${COLORS.primary};
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-`;
-
 export const FormContainer = styled(Form)`
   width: 700px;
   margin: auto;
@@ -57,4 +50,10 @@ export const FormInput = styled(Input)`
 
 export const FormButton = styled(Button)`
   margin-top: 20px;
+`;
+
+export const ColoredCategory = styled(Tag)`
+  background-color: ${COLORS.primary};
+  color: white;
+  border-radius: 10px;
 `;

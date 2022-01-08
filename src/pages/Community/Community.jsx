@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Row, Table, Tag, Layout, Form, Input } from 'antd';
+import { Button, Row, Table, Layout, Form, Input, Radio } from 'antd';
 import { Link } from 'react-router-dom';
-import { COLORS } from '../.././constants';
 import axios from 'axios';
-import {
-  Title,
-  ColoredTag,
-  MainContainer,
-  SubContainer,
-} from './Community.style';
+import { Title, MainContainer } from './Community.style';
 
 const Community = () => {
-  const { Header, Content } = Layout;
+  const { Content } = Layout;
   const { Search } = Input;
 
   const columns = [
@@ -111,9 +105,14 @@ const Community = () => {
           <Content>
             {category ? (
               <Row justify="center" style={{ margin: '20px' }}>
-                {category.map(v => {
-                  return <ColoredTag key={v.cateId}>{v.cateName}</ColoredTag>;
-                })}
+                <Radio.Group defaultValue="0" buttonStyle="solid">
+                  <Radio.Button value="0">모든 글</Radio.Button>
+                  {category.map(v => (
+                    <Radio.Button key={v.cateId} value={v.cateId}>
+                      {v.cateName}
+                    </Radio.Button>
+                  ))}
+                </Radio.Group>
               </Row>
             ) : (
               <Row>Loading...</Row>
