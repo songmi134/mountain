@@ -24,15 +24,21 @@ export const Container = styled(Row)`
   justify: center;
 `;
 
-export const MainContainer = styled(Row)`
+export const MainContainer = styled.div`
   width: 1200px;
   margin: auto;
-  align: center;
-  justify: center;
 `;
 
-export const SubContainer = styled(Row)`
-  margin: 50px;
+export const SubContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+export const CateContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px;
 `;
 
 export const FormContainer = styled(Form)`
