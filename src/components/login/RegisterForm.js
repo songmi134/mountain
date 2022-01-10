@@ -9,7 +9,8 @@ const RegisterForm =  ({ setRegisterFormOpen }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(`nickname :${event.target.nickname.value}`);
-    const res =  await fetch("/users", {
+    const res =  await fetch("https://moutain.herokuapp.com/users", {
+      mode: 'no-cors',
       method: "POST",
       headers: defaultHeaders,
       body: JSON.stringify({
