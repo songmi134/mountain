@@ -89,7 +89,7 @@ const Searchbar = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button>검색</Button>
+          <Button type="primary">검색</Button>
         </Form.Item>
       </Row>
     </Form>

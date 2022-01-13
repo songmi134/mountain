@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Menu, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import { COLORS } from '.././constants';
 
 const Nav = styled.div`
   padding: 10px;
@@ -13,6 +14,10 @@ const Nav = styled.div`
 
 const Logo = styled.img`
   width: 50px;
+`;
+
+const AvatarWrapper = styled(Avatar)`
+  background-color: ${COLORS.primary};
 `;
 
 const Navbar = () => {
@@ -39,11 +44,8 @@ const Navbar = () => {
         </Menu.Item>
 
         <Menu.Item key="login">
-          <Link to="/login">
-            <Avatar
-              style={{ backgroundColor: 'var(--color-dark-green)' }}
-              icon={<UserOutlined />}
-            />
+          <Link to="/my">
+            <AvatarWrapper icon={<UserOutlined />} />
           </Link>
         </Menu.Item>
       </Menu>
