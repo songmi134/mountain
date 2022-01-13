@@ -26,10 +26,6 @@ const Community = () => {
       title: '작성자',
       dataIndex: 'writer',
       render: text => text?.name,
-      sorter: {
-        compare: (a, b) => a.writer - b.writer,
-        multiple: 3,
-      },
     },
     {
       title: '작성일',
@@ -53,7 +49,7 @@ const Community = () => {
   const [categories, setCategories] = useState(undefined);
   const [category, setCategory] = useState(undefined);
 
-  // 검색 기능 구현
+  // 검색 기능 구현 - API로 변경
   const [userInput, setUserInput] = useState('');
 
   useEffect(() => {
@@ -84,7 +80,7 @@ const Community = () => {
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/category');
+      const response = await axios.get('/categories');
       if (!completed) {
         setCategories(response.data);
       }
@@ -104,7 +100,7 @@ const Community = () => {
     }
   };
 
-  // 표 정렬 기능 구현
+  // 표 정렬 기능 - API
   function onChange(filters, sorter, extra) {
     console.log('params', filters, sorter, extra);
   }
@@ -124,7 +120,7 @@ const Community = () => {
                   onChange={handleCategoryChange}
                 >
                   <Radio.Button value="모든 글">모든 글</Radio.Button>
-                  {categories.map(v => (
+                  {categories.content.map(v => (
                     <Radio.Button key={v.cateId} value={v.cateName}>
                       {v.cateName}
                     </Radio.Button>
@@ -144,7 +140,7 @@ const Community = () => {
                   />
                 </Form.Item>
               </Form>
-              <Link to="/form">
+              <Link to="/new">
                 <Button type="primary">글쓰기</Button>
               </Link>
             </SubContainer>
