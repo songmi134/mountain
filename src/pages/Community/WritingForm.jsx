@@ -9,11 +9,12 @@ const WritingForm = () => {
   const [categories, setCategories] = useState(undefined);
   const [category, setCategory] = useState(undefined);
   const history = useHistory();
+  const state = history.location.state;
 
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/category');
+      const response = await axios.get('/categories');
       if (!completed) {
         setCategories(response.data);
       }
@@ -37,7 +38,19 @@ const WritingForm = () => {
     };
     try {
       await axios.post('http://localhost:4000/community', newPost);
-      history.push('/community');
+      history.push('/community'); // 현재 생성된 포스트의 id를 알아내서 해당 detail 페이지로 이동시키기
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleEdit = async values => {
+    const id = state.id;
+    const updatedAt = moment().format('YYYY.MM.DD HH:mm:ss');
+    const updatedPost = { ...values, updatedAt, category };
+    try {
+      await axios.patch(`http://localhost:4000/community/${id}`, updatedPost);
+      history.push(`/community/detail/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -45,14 +58,20 @@ const WritingForm = () => {
 
   return (
     <Row>
-      <FormContainer onFinish={onFinish}>
+      <FormContainer
+        onFinish={state ? handleEdit : onFinish}
+        fields={[
+          { name: ['title'], value: state?.title },
+          { name: ['content'], value: state?.content },
+        ]}
+      >
         <Radio.Group
-          defaultValue={1}
+          defaultValue={state ? state.category : '산 후기'}
           buttonStyle="solid"
           onChange={handleCategoryChange}
         >
           {categories ? (
-            categories.map(v => (
+            categories.content.map(v => (
               <Radio.Button key={v.cateId} value={v.cateName}>
                 {v.cateName}
               </Radio.Button>
