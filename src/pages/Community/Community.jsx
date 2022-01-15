@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Row, Table, Layout, Form, Input, Radio } from 'antd';
+import { Button, Row, Layout, Form, Input, Radio } from 'antd';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -7,6 +7,7 @@ import {
   MainContainer,
   SubContainer,
   CateContainer,
+  CommunityTable,
 } from './Community.style';
 
 const Community = () => {
@@ -31,7 +32,7 @@ const Community = () => {
       title: '작성일',
       dataIndex: 'createdAt',
       sorter: {
-        compare: (a, b) => a.date - b.date,
+        compare: (a, b) => a.date - b.date, // 백엔드 API
         multiple: 2,
       },
     },
@@ -39,43 +40,57 @@ const Community = () => {
       title: '조회수',
       dataIndex: 'viewCount',
       sorter: {
-        compare: (a, b) => a.views - b.views,
+        compare: (a, b) => a.views - b.views, // 백엔드 API
         multiple: 1,
       },
     },
   ];
 
+  // 표 정렬 기능 - API
+  // function onChange(filters, sorter, extra) {
+  //   console.log('params', filters, sorter, extra);
+  // }
+
   const [allPosts, setAllPosts] = useState(undefined);
   const [categories, setCategories] = useState(undefined);
-  const [category, setCategory] = useState(undefined);
+  const [cateId, setCateId] = useState(undefined);
 
-  // 검색 기능 구현 - API로 변경
-  const [userInput, setUserInput] = useState('');
+  // 검색 기능 - API 완성 후 추가
+  // const [userInput, setUserInput] = useState('');
 
-  useEffect(() => {
-    if (allPosts) {
-      const filterTitle = allPosts.filter(post =>
-        post.title.includes(userInput)
-      );
-      setAllPosts(filterTitle);
-    }
-  }, [userInput]);
+  // useEffect(() => {
+  //   let completed = false;
+  //   const getMountains = async () => {
+  //     const response = await axios.get('/communities', {
+  //       params: { title: userInput, cateId },
+  //     });
 
+  //     if (!completed) {
+  //       setAllPosts(response.data.content);
+  //     }
+  //   };
+  //   getMountains();
+  //   return () => {
+  //     completed = true;
+  //   };
+  // }, [userInput]);
+
+  // 데이터 가져오는 것을 hook으로 만들기 (custom hook)
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/community', {
-        params: { category },
+      const response = await axios.get('/communities', {
+        params: { cateId },
       });
       if (!completed) {
-        setAllPosts(response.data);
+        setAllPosts(response.data.content);
       }
     };
     getMountains();
     return () => {
       completed = true;
     };
-  }, [category]);
+  }, [cateId]);
 
   useEffect(() => {
     let completed = false;
@@ -91,19 +106,14 @@ const Community = () => {
     };
   }, []);
 
-  const handleCategoryChange = v => {
-    const selectedCategory = v.target.value;
-    if (selectedCategory === '모든 글') {
-      setCategory(undefined);
+  const handleCateIdChange = v => {
+    const selectedcateId = v.target.value;
+    if (selectedcateId === 0) {
+      setCateId(undefined);
     } else {
-      setCategory(selectedCategory);
+      setCateId(selectedcateId);
     }
   };
-
-  // 표 정렬 기능 - API
-  function onChange(filters, sorter, extra) {
-    console.log('params', filters, sorter, extra);
-  }
 
   return (
     <>
@@ -115,13 +125,13 @@ const Community = () => {
             {categories ? (
               <CateContainer>
                 <Radio.Group
-                  defaultValue="모든 글"
+                  defaultValue={0}
                   buttonStyle="solid"
-                  onChange={handleCategoryChange}
+                  onChange={handleCateIdChange}
                 >
-                  <Radio.Button value="모든 글">모든 글</Radio.Button>
+                  <Radio.Button value={0}>모든 글</Radio.Button>
                   {categories.content.map(v => (
-                    <Radio.Button key={v.cateId} value={v.cateName}>
+                    <Radio.Button key={v.cateId} value={v.cateId}>
                       {v.cateName}
                     </Radio.Button>
                   ))}
@@ -136,23 +146,22 @@ const Community = () => {
                 <Form.Item name="search">
                   <Search
                     placeholder="글 제목을 검색하세요"
-                    onSearch={setUserInput}
+                    // onSearch={setUserInput}
                   />
                 </Form.Item>
               </Form>
-              <Link to="/new">
+              <Link to="/community/new">
                 <Button type="primary">글쓰기</Button>
               </Link>
             </SubContainer>
 
             <Row align="center">
-              <Table
+              <CommunityTable
                 columns={columns}
                 dataSource={allPosts}
-                onChange={onChange}
                 pagination={false}
-                style={{ width: '100%' }}
-              ></Table>
+                // onChange={onChange}
+              ></CommunityTable>
             </Row>
           </Content>
         </Layout>

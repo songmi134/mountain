@@ -1,7 +1,8 @@
 import { COLORS } from '../.././constants';
 import styled from 'styled-components';
-import { Row, Form, Input, Button, Tag } from 'antd';
+import { Row, Form, Input, Button, Tag, Table } from 'antd';
 
+// 반응형 추가
 export const Title = styled.div`
   font-size: 2rem;
   font-weight: bold;
@@ -62,4 +63,8 @@ export const ColoredCategory = styled(Tag)`
   background-color: ${COLORS.primary};
   color: white;
   border-radius: 10px;
+`;
+
+export const CommunityTable = styled(Table)`
+  width: 100%;
 `;
