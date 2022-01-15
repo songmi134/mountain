@@ -14,35 +14,31 @@ const AuthProvider = ({ children }) => {
       if(firebaseUser) {
         const token = await firebaseUser.getIdToken();
         defaultHeaders.Authorization = `Bearer ${token}`;
-        console.log(token);
-        //https://cors-anywhere.herokuapp.com/
-        /*
-        const res = await axios.get("https://moutain.herokuapp.com/users/me", {
+        //console.log(token);
+        
+        const res = await axios.get("/users/me", {
             headers: defaultHeaders
         });
-        */
+        
+       /*
         const res = await fetch("https://moutain.herokuapp.com/users/me", {
           mode: 'no-cors',
           method: "GET",
           headers: defaultHeaders,
         });
-        
+        */
         console.log(res);
-        console.log('1 : '+res.json());
+        console.log(res.status);
         if(res.status === 200) {
-          console.log('2 : ');
-          const user = await res.json();
+          const user = await res;
           setUser(user);
         } else if (res.status === 401) {
-          console.log('3 : ');
-          const data = await res.json();
+          const data = await res;
           if(data.code === "USER_NOT_FOUND") {
-            console.log('4 : ');
             setRegisterFormOpen(true);
           } 
         } 
       } else {
-        console.log('5 : ');
         delete defaultHeaders.Authorizations;
         setUser(null);
       } 
