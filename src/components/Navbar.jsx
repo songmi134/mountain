@@ -1,24 +1,9 @@
 import React, { useState } from 'react';
 import logo from '.././src_assets/mountain-logo.png';
 import { Link } from 'react-router-dom';
-import { Menu, Avatar } from 'antd';
+import { Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
-import { COLORS } from '.././constants';
-
-const Nav = styled.div`
-  padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-const Logo = styled.img`
-  width: 50px;
-`;
-
-const AvatarWrapper = styled(Avatar)`
-  background-color: ${COLORS.primary};
-`;
+import { Nav, Logo, AvatarWrapper } from './Navbar.style';
 
 const Navbar = () => {
   const [current, setCurrent] = useState('main');
@@ -26,6 +11,7 @@ const Navbar = () => {
   const handleClick = e => {
     setCurrent(e.key);
   };
+
   return (
     <Nav>
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
