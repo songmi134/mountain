@@ -14,12 +14,12 @@ const App = () => {
     <BrowserRouter basename="pages">
       <Navbar />
       <Route path="/" exact component={Landing} />
-      <Route path="/search" exact component={Search} />
+      <Route path="/mountain/search" exact component={Search} />
       <Route path="/community" exact component={Community} />
-      <Route path="/new" exact component={WritingForm} />
-      <Route path="/update/:id" exact component={WritingForm} />
+      <Route path="/community/new" exact component={WritingForm} />
+      <Route path="/community/update/:id" exact component={WritingForm} />
       <Route path="/community/detail/:id" component={CommunityDetail} />
-      <Route path="/my" component={My} />
+      {/* <Route path="/my" component={My} /> */}
     </BrowserRouter>
   );
 };

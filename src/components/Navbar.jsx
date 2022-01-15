@@ -36,7 +36,7 @@ const Navbar = () => {
         </Menu.Item>
 
         <Menu.Item key="search">
-          <Link to="/search">산 검색</Link>
+          <Link to="/mountain/search">산 검색</Link>
         </Menu.Item>
 
         <Menu.Item key="community">
