@@ -9,22 +9,26 @@ import {
 } from './Community.style';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-const Detail = ({ history }) => {
+const Detail = () => {
   const { Footer } = Layout;
 
-  const [community, setCommunity] = useState(undefined);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [post, setPost] = useState(undefined);
 
-  const idx = history.location.pathname.split('/').pop() - 1;
-  const id = idx + 1;
+  console.log(post);
+
+  const history = useHistory();
+  const params = useParams();
+  const postNo = params.id;
 
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/community');
+      const response = await axios.get(`/communities/${postNo}`);
       if (!completed) {
-        setCommunity(response.data);
+        setPost(response.data);
       }
     };
     getMountains();
@@ -33,7 +37,6 @@ const Detail = ({ history }) => {
     };
   }, []);
 
-  // 삭제 시 모달 띄우기
   const showDeleteConfirm = () => {
     setIsModalVisible(true);
   };
@@ -45,7 +48,7 @@ const Detail = ({ history }) => {
   const handleDelete = async () => {
     console.log('deleted');
     try {
-      await axios.delete(`http://localhost:4000/community/${id}`);
+      await axios.delete(`/communities/${postNo}`);
       history.push('/community');
     } catch (err) {
       console.log(err);
@@ -54,31 +57,31 @@ const Detail = ({ history }) => {
 
   return (
     <>
-      {community ? (
+      {post ? (
         <Container>
           <Layout>
             <Row justify="center">
-              <Title>{community[idx].title}</Title>
+              <Title>{post.title}</Title>
             </Row>
             <Row justify="space-around">
-              <ColoredCategory>{community[idx].category}</ColoredCategory>
-              <Row>작성일 {community[idx].createdAt}</Row>
-              <Row>작성자 {community[idx].writer?.name}</Row>
-              <Row>조회수 {community[idx].viewCount}</Row>
+              <ColoredCategory>{post.category}</ColoredCategory>
+              <Row>작성일 {post.createdAt}</Row>
+              <Row>작성자 {post.writer?.name}</Row>
+              <Row>조회수 {post.viewCount}</Row>
             </Row>
-            <Description>{community[idx].content}</Description>
+            <Description>{post.content}</Description>
 
             <Row justify="end">
               <Space>
                 <Button type="primary">
                   <Link
                     to={{
-                      pathname: `/update/${id}`,
+                      pathname: `/community/update/${postNo}`,
                       state: {
-                        id: community[idx].id,
-                        title: community[idx].title,
-                        category: community[idx].category,
-                        content: community[idx].content,
+                        postNo: post.commupostNo,
+                        title: post.title,
+                        category: post.category,
+                        content: post.content,
                       },
                     }}
                   >
@@ -96,15 +99,15 @@ const Detail = ({ history }) => {
           </Layout>
         </Container>
       ) : (
-        <Row>Loading...</Row>
+        <Row>로딩중...</Row>
       )}
+
       <Modal
         visible={isModalVisible}
         onCancel={handleCancel}
         centered
         title="이 글을 정말 삭제하시겠습니까?"
         onOk={handleDelete}
-        //  post={post}
       >
         <p>삭제한 글은 복구할 수 없습니다.</p>
       </Modal>
