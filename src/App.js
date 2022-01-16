@@ -18,8 +18,8 @@ const App = () => {
       <Route path="/community" exact component={Community} />
       <Route path="/community/new" exact component={WritingForm} />
       <Route path="/community/update/:id" exact component={WritingForm} />
-      <Route path="/community/detail/:id" component={CommunityDetail} />
-      {/* <Route path="/my" component={My} /> */}
+      <Route path="/community/:id" exact component={CommunityDetail} />
+      <Route path="/my" component={My} />
     </BrowserRouter>
   );
 };
