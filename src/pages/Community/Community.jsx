@@ -20,7 +20,9 @@ const Community = () => {
       title: '제목',
       dataIndex: 'title',
       render: (text, record) => (
-        <Link to={{ pathname: `/community/detail/${record.id}` }}>{text}</Link>
+        <Link to={{ pathname: `/community/${record.commupostNo}` }}>
+          {text}
+        </Link>
       ),
     },
     {
@@ -32,7 +34,7 @@ const Community = () => {
       title: '작성일',
       dataIndex: 'createdAt',
       sorter: {
-        compare: (a, b) => a.date - b.date, // 백엔드 API
+        compare: (a, b) => a.date - b.date, // TODO : 백엔드 API
         multiple: 2,
       },
     },
@@ -40,7 +42,7 @@ const Community = () => {
       title: '조회수',
       dataIndex: 'viewCount',
       sorter: {
-        compare: (a, b) => a.views - b.views, // 백엔드 API
+        compare: (a, b) => a.views - b.views, // TODO : 백엔드 API
         multiple: 1,
       },
     },
@@ -116,57 +118,55 @@ const Community = () => {
   };
 
   return (
-    <>
-      <MainContainer>
-        <Layout>
-          <Title>산에 대해 자유롭게 이야기를 나눠요</Title>
+    <MainContainer>
+      <Layout>
+        <Title>산에 대해 자유롭게 이야기를 나눠요</Title>
 
-          <Content>
-            {categories ? (
-              <CateContainer>
-                <Radio.Group
-                  defaultValue={0}
-                  buttonStyle="solid"
-                  onChange={handleCateIdChange}
-                >
-                  <Radio.Button value={0}>모든 글</Radio.Button>
-                  {categories.content.map(v => (
-                    <Radio.Button key={v.cateId} value={v.cateId}>
-                      {v.cateName}
-                    </Radio.Button>
-                  ))}
-                </Radio.Group>
-              </CateContainer>
-            ) : (
-              <Row>Loading...</Row>
-            )}
+        <Content>
+          {categories ? (
+            <CateContainer>
+              <Radio.Group
+                defaultValue={0}
+                buttonStyle="solid"
+                onChange={handleCateIdChange}
+              >
+                <Radio.Button value={0}>모든 글</Radio.Button>
+                {categories.content.map(v => (
+                  <Radio.Button key={v.cateId} value={v.cateId}>
+                    {v.cateName}
+                  </Radio.Button>
+                ))}
+              </Radio.Group>
+            </CateContainer>
+          ) : (
+            <Row>Loading...</Row>
+          )}
 
-            <SubContainer>
-              <Form>
-                <Form.Item name="search">
-                  <Search
-                    placeholder="글 제목을 검색하세요"
-                    // onSearch={setUserInput}
-                  />
-                </Form.Item>
-              </Form>
-              <Link to="/community/new">
-                <Button type="primary">글쓰기</Button>
-              </Link>
-            </SubContainer>
+          <SubContainer>
+            <Form>
+              <Form.Item name="search">
+                <Search
+                  placeholder="글 제목을 검색하세요"
+                  // onSearch={setUserInput}
+                />
+              </Form.Item>
+            </Form>
+            <Link to="/community/new">
+              <Button type="primary">글쓰기</Button>
+            </Link>
+          </SubContainer>
 
-            <Row align="center">
-              <CommunityTable
-                columns={columns}
-                dataSource={allPosts}
-                pagination={false}
-                // onChange={onChange}
-              ></CommunityTable>
-            </Row>
-          </Content>
-        </Layout>
-      </MainContainer>
-    </>
+          <Row align="center">
+            <CommunityTable
+              columns={columns}
+              dataSource={allPosts}
+              pagination={false}
+              // onChange={onChange}
+            />
+          </Row>
+        </Content>
+      </Layout>
+    </MainContainer>
   );
 };
 
