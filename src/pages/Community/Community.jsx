@@ -34,7 +34,11 @@ const Community = () => {
       title: '작성일',
       dataIndex: 'createdAt',
       sorter: {
-        compare: (a, b) => a.date - b.date, // TODO : 백엔드 API
+        compare: (a, b) => {
+          console.log(a.createdAt, b);
+          // TODO : API 호출(axios)
+          return a.createdAt - b.createdAt;
+        },
         multiple: 2,
       },
     },
@@ -42,42 +46,43 @@ const Community = () => {
       title: '조회수',
       dataIndex: 'viewCount',
       sorter: {
-        compare: (a, b) => a.views - b.views, // TODO : 백엔드 API
+        compare: (a, b) => a.viewCount - b.viewCount,
         multiple: 1,
       },
     },
   ];
 
-  // 표 정렬 기능 - API
-  // function onChange(filters, sorter, extra) {
-  //   console.log('params', filters, sorter, extra);
-  // }
+  function onChange(filters, sorter, extra) {
+    console.log('params', filters, sorter, extra);
+  }
 
   const [allPosts, setAllPosts] = useState(undefined);
   const [categories, setCategories] = useState(undefined);
   const [cateId, setCateId] = useState(undefined);
+  const [userInput, setUserInput] = useState('');
 
-  // 검색 기능 - API 완성 후 추가
-  // const [userInput, setUserInput] = useState('');
+  // TODO : 데이터 가져오는 것을 hook으로 만들기 (custom hook) - 반복되는 부분 없애기
+  useEffect(() => {
+    let completed = false;
+    const getMountains = async () => {
+      try {
+        const response = await axios.get('/communities', {
+          params: { title: userInput },
+        });
+        if (!completed) {
+          setAllPosts(response.data.content);
+        }
+      } catch (err) {
+        setAllPosts(undefined);
+        console.log(err);
+      }
+    };
+    getMountains();
+    return () => {
+      completed = true;
+    };
+  }, [userInput]);
 
-  // useEffect(() => {
-  //   let completed = false;
-  //   const getMountains = async () => {
-  //     const response = await axios.get('/communities', {
-  //       params: { title: userInput, cateId },
-  //     });
-
-  //     if (!completed) {
-  //       setAllPosts(response.data.content);
-  //     }
-  //   };
-  //   getMountains();
-  //   return () => {
-  //     completed = true;
-  //   };
-  // }, [userInput]);
-
-  // 데이터 가져오는 것을 hook으로 만들기 (custom hook)
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
@@ -147,7 +152,7 @@ const Community = () => {
               <Form.Item name="search">
                 <Search
                   placeholder="글 제목을 검색하세요"
-                  // onSearch={setUserInput}
+                  onSearch={setUserInput}
                 />
               </Form.Item>
             </Form>
@@ -161,7 +166,7 @@ const Community = () => {
               columns={columns}
               dataSource={allPosts}
               pagination={false}
-              // onChange={onChange}
+              onChange={onChange}
             />
           </Row>
         </Content>
