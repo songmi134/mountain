@@ -13,22 +13,28 @@ const AuthProvider = ({ children }) => {
       if(firebaseUser) {
         const token = await firebaseUser.getIdToken();
         localStorage.setItem('token', "Bearer "+token);
-        /*
-        const res = await axios.get("/users/me", {
-            headers: defaultHeaders
-        });
-        */
-        const res = await axiosInstance.get("/users/me");
-        console.log(res.status);
-        if(res.status === 200) {
-          const user = await res;
-          setUser(user);
-        } else if (res.status === 401) {
-          const data = await res;
-          if(data.code === "USER_NOT_FOUND") {
-            setRegisterFormOpen(true);
-          } 
-        } 
+
+        var res;
+        try {
+          res = await axiosInstance.get("/users/me");
+          if(res.status === 200) {
+            const user = await res;
+            setUser(user);
+          } else if (res.status === 404) {
+            const data = await res;
+            if(data.code === "USER_NOT_FOUND") {
+              setRegisterFormOpen(true);
+            } 
+          }           
+        }catch (e) { //에러발생 시
+          if (e.response.status === 404) {
+            
+            if(e.response.data.code === "USER_NOT_FOUND") {
+              setRegisterFormOpen(true);
+            } 
+          }
+        }
+
       } else {
         localStorage.clear();
         setUser(null);
