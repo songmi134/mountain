@@ -5,8 +5,8 @@ import Landing from './pages/Landing/Landing';
 import Search from './pages/Search/Search';
 import Community from './pages/Community/Community';
 import Login from './pages/Login/Login';
-import './App.less';
 import AuthProvider from './components/login/AuthProvider';
+import './App.less';
 
 const App = () => {
   return (
