@@ -9,13 +9,14 @@ import {
   CateContainer,
   CommunityTable,
 } from './Community.style';
+import moment from 'moment';
 
 const Community = () => {
   const { Content } = Layout;
   const { Search } = Input;
 
   const columns = [
-    { title: 'No', dataIndex: 'id' },
+    { title: 'No', dataIndex: 'commupostNo' },
     {
       title: '제목',
       dataIndex: 'title',
@@ -27,18 +28,14 @@ const Community = () => {
     },
     {
       title: '작성자',
-      dataIndex: 'writer',
+      dataIndex: 'user',
       render: text => text?.name,
     },
     {
       title: '작성일',
       dataIndex: 'createdAt',
       sorter: {
-        compare: (a, b) => {
-          console.log(a.createdAt, b);
-          // TODO : API 호출(axios)
-          return a.createdAt - b.createdAt;
-        },
+        compare: (a, b) => moment(a.createdAt) - moment(b.createdAt),
         multiple: 2,
       },
     },
@@ -51,10 +48,6 @@ const Community = () => {
       },
     },
   ];
-
-  function onChange(filters, sorter, extra) {
-    console.log('params', filters, sorter, extra);
-  }
 
   const [allPosts, setAllPosts] = useState(undefined);
   const [categories, setCategories] = useState(undefined);
@@ -70,7 +63,11 @@ const Community = () => {
           params: { title: userInput },
         });
         if (!completed) {
-          setAllPosts(response.data.content);
+          const posts = response.data.content.map(p => {
+            p.createdAt = moment(p.createdAt).format('YYYY.MM.DD');
+            return p;
+          });
+          setAllPosts(posts);
         }
       } catch (err) {
         setAllPosts(undefined);
@@ -90,7 +87,11 @@ const Community = () => {
         params: { cateId },
       });
       if (!completed) {
-        setAllPosts(response.data.content);
+        const posts = response.data.content.map(p => {
+          p.createdAt = moment(p.createdAt).format('YYYY.MM.DD');
+          return p;
+        });
+        setAllPosts(posts);
       }
     };
     getMountains();
@@ -122,6 +123,10 @@ const Community = () => {
     }
   };
 
+  const onClick = () => {
+    setCateId('');
+  };
+
   return (
     <MainContainer>
       <Layout>
@@ -135,7 +140,10 @@ const Community = () => {
                 buttonStyle="solid"
                 onChange={handleCateIdChange}
               >
-                <Radio.Button value={0}>모든 글</Radio.Button>
+                <Radio.Button value={0}>
+                  <div onClick={onClick}>모든 글</div>
+                </Radio.Button>
+
                 {categories.content.map(v => (
                   <Radio.Button key={v.cateId} value={v.cateId}>
                     {v.cateName}
@@ -163,10 +171,9 @@ const Community = () => {
 
           <Row align="center">
             <CommunityTable
-              columns={columns}
               dataSource={allPosts}
+              columns={columns}
               pagination={false}
-              onChange={onChange}
             />
           </Row>
         </Content>

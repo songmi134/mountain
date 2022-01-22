@@ -10,15 +10,13 @@ import {
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
+import moment from 'moment';
 
 const Detail = () => {
   const { Footer } = Layout;
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false); // 빼기
   const [post, setPost] = useState(undefined);
-
-  console.log(post);
-
   const history = useHistory();
   const params = useParams();
   const postNo = params.id;
@@ -28,7 +26,10 @@ const Detail = () => {
     const getMountains = async () => {
       const response = await axios.get(`/communities/${postNo}`);
       if (!completed) {
-        setPost(response.data);
+        const createdAt = moment(response.data.createdAt).format(
+          'YYYY.MM.DD HH:mm:ss'
+        );
+        setPost({ ...response.data, createdAt });
       }
     };
     getMountains();
