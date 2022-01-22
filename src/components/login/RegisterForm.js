@@ -10,16 +10,11 @@ const RegisterForm =  ({ setRegisterFormOpen }) => {
     event.preventDefault();
     //console.log(`nickname :${event.target.nickname.value}`);
 
-    const res = await axiosInstance.post("/users", {
-      body: JSON.stringify({
-        nickname: event.target.nickname.value,
-      })
-    });
-    console.log(res);
+    const res = await axiosInstance.post("/users", 
+        { name: event.target.nickname.value }
+    );
     
-    const user = await res.json();
     setRegisterFormOpen(false);
-    setUser(user);
   };
 
   return (
