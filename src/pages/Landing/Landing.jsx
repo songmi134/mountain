@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../components/login/AuthProvider';
+import React, { useContext } from "react";
+import { UserContext } from "../../components/login/AuthProvider";
 
 const Landing = () => {
-  
-  const { user }  = useContext(UserContext);
-  console.log(localStorage.getItem('token'));
+  const { user } = useContext(UserContext);
+  console.log(localStorage.getItem("token"));
   console.log(user);
-
   return <div>Landing page</div>;
 };
 
