@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Title = styled.div`
   font-family: Roboto;
@@ -14,6 +14,4 @@ export const Title = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-
 `;
-

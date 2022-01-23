@@ -3,51 +3,46 @@ import { auth } from "../../auth/firebaseAuth";
 import RegisterForm from "./RegisterForm";
 import { axiosInstance } from "../../config/axiosConfig";
 
-export const UserContext = React.createContext( null );
+export const UserContext = React.createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [registerFormOpen, setRegisterFormOpen] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged(async (firebaseUser) => {
-      if(firebaseUser) {
+      if (firebaseUser) {
         const token = await firebaseUser.getIdToken();
-        localStorage.setItem('token', "Bearer "+token);
+        localStorage.setItem("token", "Bearer " + token);
 
         var res;
         try {
           res = await axiosInstance.get("/users/me");
-          if(res.status === 200) {
+          if (res.status === 200) {
             const user = await res;
             setUser(user);
-          } else if (res.status === 404) {
-            const data = await res;
-            if(data.code === "USER_NOT_FOUND") {
-              setRegisterFormOpen(true);
-            } 
-          }           
-        }catch (e) { //에러발생 시
+          }
+        } catch (e) {
+          //에러발생 시
           if (e.response.status === 404) {
-            
-            if(e.response.data.code === "USER_NOT_FOUND") {
+            if (e.response.data.code === "USER_NOT_FOUND") {
               setRegisterFormOpen(true);
-            } 
+            }
           }
         }
-
       } else {
         localStorage.clear();
         setUser(null);
-      } 
+      }
     });
   }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      {(registerFormOpen) ? 
-        (<RegisterForm setRegisterFormOpen={setRegisterFormOpen} />) :
-        (children)
-      }
+      {registerFormOpen ? (
+        <RegisterForm setRegisterFormOpen={setRegisterFormOpen} />
+      ) : (
+        children
+      )}
     </UserContext.Provider>
   );
 };
