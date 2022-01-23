@@ -12,6 +12,9 @@
     "axios": "^0.24.0",
     "craco-antd": "^1.19.0",
     "cross-env": "^7.0.3",
+    "craco-less": "^2.0.0",
+    "firebase": "^8.10.0",
+    "firebaseui": "^5.0.0",
     "json-server": "^0.17.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -44,7 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "craco-less": "^2.0.0"
-  }
+  "proxy": "https://moutain.herokuapp.com"
 }
