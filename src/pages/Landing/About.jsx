@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Wrapper, Description, Title, Text } from "./About.styles";
 import backImg from "../../src_assets/back.jpg";
+import { revealText } from "./About.animations";
 
 const About = () => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    revealText(sectionRef.current, "#about-text");
+  }, []);
+
   return (
     <>
-      <Wrapper bgColor="white" id="about">
+      <Wrapper bgColor="white" id="about" ref={sectionRef}>
         <div style={{ marginBottom: "6rem" }}>
           <Title id="about-text">
             <br />
