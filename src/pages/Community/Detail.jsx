@@ -9,15 +9,16 @@ import {
 } from './Community.style';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import DeleteModal from '../../components/DeleteModal';
 
 const Detail = () => {
   const { Footer } = Layout;
 
-  const [isModalVisible, setIsModalVisible] = useState(false); // 빼기
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [post, setPost] = useState(undefined);
-  const history = useHistory();
+
   const params = useParams();
   const postNo = params.id;
 
@@ -46,16 +47,6 @@ const Detail = () => {
     setIsModalVisible(false);
   };
 
-  const handleDelete = async () => {
-    console.log('deleted');
-    try {
-      await axios.delete(`/communities/${postNo}`);
-      history.push('/community');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <>
       {post ? (
@@ -67,7 +58,7 @@ const Detail = () => {
             <Row justify="space-around">
               <ColoredCategory>{post.category}</ColoredCategory>
               <Row>작성일 {post.createdAt}</Row>
-              <Row>작성자 {post.writer?.name}</Row>
+              <Row>작성자 {post.user?.name}</Row>
               <Row>조회수 {post.viewCount}</Row>
             </Row>
             <Description>{post.content}</Description>
@@ -102,16 +93,13 @@ const Detail = () => {
       ) : (
         <Row>로딩중...</Row>
       )}
-
-      <Modal
+      <DeleteModal
         visible={isModalVisible}
-        onCancel={handleCancel}
-        centered
-        title="이 글을 정말 삭제하시겠습니까?"
-        onOk={handleDelete}
-      >
-        <p>삭제한 글은 복구할 수 없습니다.</p>
-      </Modal>
+        onCancle={handleCancel}
+        postNo={postNo}
+        title="글"
+        url={`/communities/${postNo}`}
+      />
     </>
   );
 };
