@@ -10,13 +10,21 @@ import {
   CommunityTable,
 } from './Community.style';
 import moment from 'moment';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Community = () => {
   const { Content } = Layout;
   const { Search } = Input;
 
   const columns = [
-    { title: 'No', dataIndex: 'commupostNo' },
+    {
+      title: 'No',
+      dataIndex: 'commupostNo',
+      sorter: {
+        compare: (a, b) => a.commupostNo - b.commupostNo,
+        multiple: 3,
+      },
+    },
     {
       title: '제목',
       dataIndex: 'title',
@@ -49,10 +57,12 @@ const Community = () => {
     },
   ];
 
-  const [allPosts, setAllPosts] = useState(undefined);
+  const [allPosts, setAllPosts] = useState([]);
   const [categories, setCategories] = useState(undefined);
   const [cateId, setCateId] = useState(undefined);
   const [userInput, setUserInput] = useState('');
+  const [totalPostsCount, setTotalPostsCount] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   // TODO : 데이터 가져오는 것을 hook으로 만들기 (custom hook) - 반복되는 부분 없애기
   useEffect(() => {
@@ -92,6 +102,7 @@ const Community = () => {
           return p;
         });
         setAllPosts(posts);
+        setTotalPostsCount(response.data.totalElements);
       }
     };
     getMountains();
@@ -125,6 +136,34 @@ const Community = () => {
 
   const onClick = () => {
     setCateId('');
+  };
+
+  let completed = false;
+  let page = 1; // 0은 이미 보여주니 1부터 시작
+  const getMountains = async () => {
+    const response = await axios.get('/communities', {
+      params: { cateId, page },
+    });
+    if (!completed) {
+      const posts = response.data.content.map(p => {
+        p.createdAt = moment(p.createdAt).format('YYYY.MM.DD');
+        return p;
+      });
+      // setAllPosts(posts); concat으로 기존 데이터와 연결
+      page++;
+    }
+  };
+
+  const fetchMoreData = () => {
+    console.log(allPosts.length, totalPostsCount);
+    if (allPosts.length >= totalPostsCount) {
+      setHasMore(false);
+      return;
+    }
+    // 데이터 더 가져오기
+    getMountains();
+    console.log('Fetch More');
+    console.log(allPosts);
   };
 
   return (
@@ -169,13 +208,25 @@ const Community = () => {
             </Link>
           </SubContainer>
 
-          <Row align="center">
-            <CommunityTable
-              dataSource={allPosts}
-              columns={columns}
-              pagination={false}
-            />
-          </Row>
+          <InfiniteScroll
+            dataLength={allPosts.length}
+            next={fetchMoreData}
+            hasMore={allPosts.length >= totalPostsCount ? false : true}
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: 'center' }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <Row align="center">
+              <CommunityTable
+                dataSource={allPosts}
+                columns={columns}
+                pagination={false}
+              />
+            </Row>
+          </InfiniteScroll>
         </Content>
       </Layout>
     </MainContainer>
