@@ -62,7 +62,6 @@ const Community = () => {
   const [cateId, setCateId] = useState(undefined);
   const [userInput, setUserInput] = useState('');
   const [totalPostsCount, setTotalPostsCount] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
 
   // TODO : 데이터 가져오는 것을 hook으로 만들기 (custom hook) - 반복되는 부분 없애기
   useEffect(() => {
@@ -138,9 +137,9 @@ const Community = () => {
     setCateId('');
   };
 
-  let completed = false;
-  let page = 1; // 0은 이미 보여주니 1부터 시작
   const getMountains = async () => {
+    let completed = false;
+    let page = 1;
     const response = await axios.get('/communities', {
       params: { cateId, page },
     });
@@ -149,21 +148,16 @@ const Community = () => {
         p.createdAt = moment(p.createdAt).format('YYYY.MM.DD');
         return p;
       });
-      // setAllPosts(posts); concat으로 기존 데이터와 연결
+      const currentPosts = allPosts.concat(posts);
+      setAllPosts(currentPosts);
       page++;
     }
   };
 
+  const hasMore = allPosts.length < totalPostsCount;
   const fetchMoreData = () => {
-    console.log(allPosts.length, totalPostsCount);
-    if (allPosts.length >= totalPostsCount) {
-      setHasMore(false);
-      return;
-    }
-    // 데이터 더 가져오기
+    if (!hasMore) return;
     getMountains();
-    console.log('Fetch More');
-    console.log(allPosts);
   };
 
   return (
@@ -211,13 +205,8 @@ const Community = () => {
           <InfiniteScroll
             dataLength={allPosts.length}
             next={fetchMoreData}
-            hasMore={allPosts.length >= totalPostsCount ? false : true}
+            hasMore={hasMore}
             loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: 'center' }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
           >
             <Row align="center">
               <CommunityTable
