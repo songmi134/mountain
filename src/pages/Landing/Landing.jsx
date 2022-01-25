@@ -1,10 +1,12 @@
-import React from 'react';
-import About from './About';
+import React from "react";
+import About from "./About";
 
 const Landing = () => {
-  return <>
-    <About />
-  </>
+  return (
+    <>
+      <About />
+    </>
+  );
 };
 
 export default Landing;
