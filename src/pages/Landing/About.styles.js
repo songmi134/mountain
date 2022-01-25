@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import backImg from '../../src_assets/back.jpg';
+import styled from "styled-components";
+import backImg from "../../src_assets/back.jpg";
 
 export const Description = styled.p`
   display: flex;
@@ -7,7 +7,7 @@ export const Description = styled.p`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-family: 'Merriweather', 'Spoqa Han Sans';
+  font-family: "Merriweather", "Spoqa Han Sans";
   font-weight: 300;
   opacity: 0;
   transform: translateY(60px);
@@ -22,11 +22,12 @@ export const Description = styled.p`
 `;
 
 export const Title = styled.div`
-  font-family: 'Merriweather', 'Spoqa Han Sans';
+  font-family: "Merriweather", "Spoqa Han Sans";
   font-style: italic;
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
   text-align: center;
+  color: white;
   width: 100%;
   margin: 0 auto;
   margin-bottom: 5rem;
@@ -50,5 +51,3 @@ export const Wrapper = styled.section`
   width: 100%;
   height: auto;
 `;
-
-

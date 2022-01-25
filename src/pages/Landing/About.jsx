@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { Wrapper, Description, Title, Text } from "./About.styles";
-import backImg from "../../src_assets/back.jpg";
+import backImg1 from "../../src_assets/picture1.jpg";
+import backImg2 from "../../src_assets/picture2.png";
+import backImg3 from "../../src_assets/picture3.png";
 import { revealText } from "./About.animations";
 
 const About = () => {
@@ -13,7 +15,7 @@ const About = () => {
   return (
     <>
       <Wrapper bgColor="white" id="about" ref={sectionRef}>
-        <div style={{ marginBottom: "6rem" }}>
+        <div style={{ marginBottom: "6rem", width: "100%" }}>
           <Title id="about-text">
             <br />
             <br />
@@ -24,10 +26,10 @@ const About = () => {
             <br />
           </Title>
           <Description id="about-text">
-            <img src={backImg} alt="image"></img>
+            <img src={backImg2} alt="image" />
             <div>
               <Text>
-                하나!
+                <strong>하나!</strong>
                 <br />
                 내가 가고싶은 산 검색
               </Text>
@@ -36,18 +38,18 @@ const About = () => {
           <Description id="about-text">
             <div>
               <Text>
-                둘!
+                <strong>둘!</strong>
                 <br />
                 내가 가고싶은 산 검색
               </Text>
             </div>
-            <img src={backImg} alt="image"></img>
+            <img src={backImg1} alt="image" />
           </Description>
           <Description id="about-text">
-            <img src={backImg} alt="image"></img>
+            <img src={backImg3} alt="image" />
             <div>
               <Text>
-                셋!
+                <strong>셋!</strong>
                 <br />
                 내가 가고싶은 산 검색
               </Text>
