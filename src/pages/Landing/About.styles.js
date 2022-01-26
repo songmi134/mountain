@@ -19,6 +19,14 @@ export const Description = styled.p`
     margin: 1rem;
     margin-bottom: 2rem;
   }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+
+    img {
+      width: 70%;
+    }
+  }
 `;
 
 export const Title = styled.div`
@@ -37,11 +45,25 @@ export const Title = styled.div`
   background: url(${backImg});
   background-size: cover;
   background-repeat: no-repeat;
+
+  @media (max-width: 1018px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 576px) {
+    font-size: 1rem;
+  }
 `;
 
 export const Text = styled.div`
   margin: 3rem;
   font-size: 2.5rem;
+
+  @media (max-width: 1018px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 576px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const Wrapper = styled.section`
