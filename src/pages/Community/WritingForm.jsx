@@ -48,7 +48,7 @@ const WritingForm = () => {
       ...values,
       createdAt,
       viewCount: 0,
-      writer: { name: '닉네임' },
+      user: { name: '닉네임' },
     };
     console.log(newPost);
     try {
