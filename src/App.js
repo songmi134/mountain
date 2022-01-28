@@ -6,27 +6,27 @@ import Search from './pages/Search/Search';
 import Community from './pages/Community/Community';
 import WritingForm from './pages/Community/WritingForm';
 import CommunityDetail from './pages/Community/Detail';
-import Login from "./pages/Login/Login";
-import AuthProvider from "./components/login/AuthProvider";
+import Login from './pages/Login/Login';
+import AuthProvider from './components/login/AuthProvider';
 // import My from './pages/My/My';
 import './App.less';
 
 const App = () => {
   return (
     <AuthProvider>
-    <BrowserRouter basename="pages">
-      <Navbar />
-      <Switch>
-        <Route path="/" exact component={Landing} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/mountain/search" exact component={Search} />
-        <Route path="/community" exact component={Community} />
-        <Route path="/community/new" exact component={WritingForm} />
-        <Route path="/community/update/:id" exact component={WritingForm} />
-        <Route path="/community/:id" component={CommunityDetail} />
-        {/* <Route path="/my" component={My} /> */}
-      </Switch>
-    </BrowserRouter>
+      <BrowserRouter basename="#/pages">
+        <Navbar />
+        <Switch>
+          <Route path="/" exact component={Landing} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/mountain/search" exact component={Search} />
+          <Route path="/community" exact component={Community} />
+          <Route path="/community/new" exact component={WritingForm} />
+          <Route path="/community/update/:id" exact component={WritingForm} />
+          <Route path="/community/:id" component={CommunityDetail} />
+          {/* <Route path="/my" component={My} /> */}
+        </Switch>
+      </BrowserRouter>
     </AuthProvider>
   );
 };
