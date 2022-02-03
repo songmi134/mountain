@@ -1,15 +1,16 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Landing from './pages/Landing/Landing';
-import Search from './pages/Search/Search';
-import Community from './pages/Community/Community';
-import WritingForm from './pages/Community/WritingForm';
-import CommunityDetail from './pages/Community/Detail';
-import Login from './pages/Login/Login';
-import AuthProvider from './components/login/AuthProvider';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Landing from "./pages/Landing/Landing";
+import Search from "./pages/Search/Search";
+import Community from "./pages/Community/Community";
+import WritingForm from "./pages/Community/WritingForm";
+import CommunityDetail from "./pages/Community/Detail";
+import Login from "./pages/Login/Login";
+import AuthProvider from "./components/login/AuthProvider";
 // import My from './pages/My/My';
-import './App.less';
+import Detail from "./pages/Detail/Detail";
+import "./App.less";
 
 const App = () => {
   return (
