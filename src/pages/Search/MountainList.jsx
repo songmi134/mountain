@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { List, Space } from 'antd';
 import { HeartTwoTone, MessageOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { MountainHeight, MountainName } from './Search.style';
 
 const MountainList = () => {
   // 추후 좋아요 & 댓글 수 반영하기
@@ -14,13 +15,12 @@ const MountainList = () => {
 
   const [mountains, setMountains] = useState(undefined);
 
-  // 임시 데이터
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/mountains');
+      const response = await axios.get('/mountains');
       if (!completed) {
-        setMountains(response.data);
+        setMountains(response.data.content);
       }
     };
     getMountains();
@@ -34,7 +34,7 @@ const MountainList = () => {
       <List
         itemLayout="vertical"
         size="large"
-        pagination={{ pageSize: 3 }}
+        pagination={{ pageSize: 5 }}
         dataSource={mountains}
         renderItem={item => (
           <List.Item
@@ -52,13 +52,22 @@ const MountainList = () => {
                 key="list-vertical-message"
               />,
             ]}
-            extra={<img width={272} alt="mountain" src={item.imgUrl[0]} />}
+            extra={
+              <img width={300} height={180} alt="mountain" src={item.orgUrl} />
+            }
           >
             <List.Item.Meta
-              title={<a href="temp">{item.mountainName}</a>}
+              title={
+                <span>
+                  <MountainName href="temp">{item.mountainName}</MountainName>
+                  <MountainHeight>{item.mountainHeight}m</MountainHeight>
+                </span>
+              }
               description={item.addressDetail}
             />
-            {item.mountainInfo}
+            {item.mountainSum?.length > 100
+              ? item.mountainSum.slice(0, 100) + '...'
+              : item.mountainSum}
           </List.Item>
         )}
       />
