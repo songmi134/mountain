@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row } from 'antd';
+import { Row, Form } from 'antd';
 
 export const Title = styled.div`
   font-family: Work Sans;
@@ -51,6 +51,13 @@ export const ImgL = styled.img`
 `;
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+
+`;
+
+export const FormContainer = styled(Form)`
   display: flex;
   flex-direction: row;
   width: 600px;
