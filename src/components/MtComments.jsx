@@ -40,19 +40,23 @@ const CommentList = ({ comments }) => {
 
   const editComment = async (updatedComment) => {
     try {
+      const newComment = {
+        content: updatedComment,
+      };
+
       await axiosInstance.patch(
         `/mountains/${postNo}/comments/${comment.commentNo}`,
-        updatedComment
+        newComment
       );
+      setIsModalVisible(false);
+      setIsEditModalVisible(false);
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleEdit = (values) => {
-    const updatedAt = moment().format("YYYY.MM.DD HH:mm:ss");
-    const updatedComment = { ...values, updatedAt };
-    editComment(updatedComment);
+    editComment(values);
     setIsModalVisible(false);
   };
 
@@ -60,7 +64,7 @@ const CommentList = ({ comments }) => {
     form
       .validateFields()
       .then((values) => {
-        handleEdit(values);
+        handleEdit(values.comment);
       })
       .catch((err) => {
         console.log(err);
@@ -216,8 +220,6 @@ const MtComments = () => {
       setSubmitting(false);
       setValue("");
       const newComment = {
-        // 무슨 데이터 들어갈지
-        //user, 사용자 정보는 필요없었다
         content: value,
       };
       console.log(newComment); // For check
