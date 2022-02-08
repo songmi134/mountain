@@ -10,7 +10,6 @@ import {
   Tooltip,
 } from "antd";
 import moment from "moment";
-import axios from "axios";
 import { axiosInstance } from "../config/axiosConfig";
 import { useParams } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
@@ -33,9 +32,19 @@ const CommentList = ({ comments }) => {
     setIsEditModalVisible(true);
   };
 
-  const showDeleteConfirm = (comment) => {
+  const showDeleteConfirm = async (comment) => {
     setComment(comment);
     setIsModalVisible(true);
+
+    try {
+      await axiosInstance.delete(
+        `/mountains/${postNo}/comments/${comment.commentNo}`
+      );
+      setIsModalVisible(false);
+      setIsEditModalVisible(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const editComment = async (updatedComment) => {
@@ -197,23 +206,6 @@ const MtComments = () => {
   const handleSubmit = async () => {
     if (!value) return;
     setSubmitting(true);
-
-    /* 댓글 달기 테스트
-    setTimeout(() => {
-      setSubmitting(false);
-      setValue('');
-      setComments([
-        ...comments,
-        {
-          user: {
-            name: '닉네임',
-            imgUrl: 'https://joeschmoe.io/api/v1/random',
-          },
-          commentContent: value,
-          createdAt: moment().fromNow(),
-        },
-      ]);
-    }, 1000);*/
 
     // 렌더링 될 수 있도록 로그인 붙인 후 수정
     try {
