@@ -188,7 +188,7 @@ const MtComments = () => {
     return () => {
       completed = true;
     };
-  }, []);
+  }, [comments]);
 
   const handleSubmit = async () => {
     if (!value) return;
