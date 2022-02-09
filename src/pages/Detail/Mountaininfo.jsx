@@ -21,7 +21,7 @@ const Mountaininfo = () => {
     let completed = false;
     // 산 상세정보
     const getMountains = async () => {
-      const response = await axiosInstance.get(`/mountains/${postId}`);
+      const response = await axios.get(`/mountains/${postId}`);
 
       if (!completed) {
         setMountainName(response.data.mountainName);
@@ -51,7 +51,6 @@ const Mountaininfo = () => {
     };
     getMountains();
     getMountainLike();
-
     return () => {
       completed = true;
     };
@@ -62,7 +61,21 @@ const Mountaininfo = () => {
       const newPost = {
         mountainNo: postId,
       };
+      try {
+        await axiosInstance.post(`/likes/me/mountains`, newPost);
+        document.getElementById("imgS").src = heart1;
+        setLikeYn(1);
+      } catch (err) {
+        console.log(err);
+      }
     } else {
+      try {
+        await axiosInstance.delete(`/likes/me/mountains/${postId}`);
+        document.getElementById("imgS").src = heart2;
+        setLikeYn(0);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
