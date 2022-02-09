@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import Mountaininfo from "./Mountaininfo";
-import Comment from "./Comment";
+import MtComments from "../../components/MtComments";
 import { Showcase, List } from "./Detail.style";
 
 const Detail = () => {
@@ -11,7 +10,7 @@ const Detail = () => {
         <List>
           <Mountaininfo />
           <hr></hr>
-          <Comment />
+          <MtComments />
         </List>
       </Showcase>
     </>
