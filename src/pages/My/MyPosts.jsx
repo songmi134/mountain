@@ -10,7 +10,7 @@ const MyPosts = () => {
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/community');
+      const response = await axios.get('me/community');
       if (!completed) {
         setAllPosts(response.data);
         setPostCount(response.data.length);

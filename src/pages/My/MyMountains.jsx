@@ -10,7 +10,7 @@ const MyMountains = () => {
   useEffect(() => {
     let completed = false;
     const getMountains = async () => {
-      const response = await axios.get('http://localhost:4000/mountains');
+      const response = await axios.get('/likes/me/mountains');
       if (!completed) {
         setMountains(response.data);
         setMountainCount(response.data.length);
