@@ -20,6 +20,7 @@ const App = () => {
           <Route path="/" exact component={Landing} />
           <Route path="/login" exact component={Login} />
           <Route path="/mountain/search" exact component={Search} />
+          <Route path="/mountain/search/:id" exact component={Detail} />
           <Route path="/community" exact component={Community} />
           <Route path="/community/new" exact component={WritingForm} />
           <Route path="/community/update/:id" exact component={WritingForm} />
