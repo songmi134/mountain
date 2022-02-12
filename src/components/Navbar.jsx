@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import logo from '.././src_assets/mountain-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Nav, Logo, AvatarWrapper } from './Navbar.style';
 
 const Navbar = () => {
-  const [current, setCurrent] = useState('main');
+  const location = useLocation();
+  const [current, setCurrent] = useState(location.pathname.split('/').pop());
 
   const handleClick = e => {
     setCurrent(e.key);
@@ -15,7 +16,7 @@ const Navbar = () => {
   return (
     <Nav>
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-        <Menu.Item key="main">
+        <Menu.Item key="">
           <Link to="/">
             <Logo src={logo} alt="logo" />
           </Link>
@@ -29,7 +30,7 @@ const Navbar = () => {
           <Link to="/community">커뮤니티</Link>
         </Menu.Item>
 
-        <Menu.Item key="login">
+        <Menu.Item key="my">
           <Link to="/my">
             <AvatarWrapper icon={<UserOutlined />} />
           </Link>
@@ -40,3 +41,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+s;

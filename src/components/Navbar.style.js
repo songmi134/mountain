@@ -1,6 +1,6 @@
-import { Avatar } from 'antd';
 import styled from 'styled-components';
 import { COLORS } from '.././constants';
+import { Avatar } from 'antd';
 
 export const Nav = styled.div`
   padding: 10px;
